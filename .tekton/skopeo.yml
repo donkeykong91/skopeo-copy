@@ -9,11 +9,11 @@ spec:
     - name: srcImageURL
       description: URL of the image to be copied to the destination registry
       type: string
-      default: "docker://us.icr.io/daryl-test/test-repo:sha256:400ee2ed939df769d4681023810d2e4fb9479b8401d97003c710d0e20f7c49c6"
+      default: "docker://us.icr.io/dko-test/repo-test:latest"
     - name: destImageURL
       description: URL of the image where the image from source should be copied to
       type: string
-      default: "us.icr.io/daryl-test/test-repo:beta"
+      default: "docker://us.icr.io/dko-staging/staging-repo:beta"
   steps:
     - name: skopeo-copy
       image: quay.io/vinamra2807/skopeo:latest
