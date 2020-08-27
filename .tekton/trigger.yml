@@ -10,6 +10,13 @@ kind: TriggerTemplate
 metadata:
   name: template-skopeo-copy
 spec:
+  params:
+    - name: icr-username
+      description: Username for the icr
+      value: $(params.icr-username)
+    - name: icr-password
+      description: Password for the icr
+      value: $(params.icr-password)
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -19,9 +26,6 @@ spec:
         serviceAccountName: icr-creds-secret
         pipelineRef:
           name: skopeo-copy-pipeline
-        params:
-          - name: URL
-            value: $(params.URL)
 
 ---
 
