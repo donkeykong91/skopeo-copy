@@ -3,6 +3,8 @@ kind: Pipeline
 metadata:
   name: skopeo-copy-pipeline
 spec:
+  workspaces:
+  - name: pipeline-workspace
   tasks: 
     - name: copy
       workspaces: 
