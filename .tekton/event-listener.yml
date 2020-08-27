@@ -1,10 +1,10 @@
 apiVersion: tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: github-push
+  name: skopeo-copy
 spec:
   triggers:
     - binding:
-        name: binding-github-push
+        name: binding-skopeo-copy
       template:
-        name: template-github-push
+        name: template-skopeo-copy

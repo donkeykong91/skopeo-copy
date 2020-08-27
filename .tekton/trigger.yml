@@ -1,22 +1,15 @@
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
-  name: binding-github-push
-spec:
-  params:
-    - name: URL
-      value: "$(event.repository.url)"
+  name: binding-skopeo-copy
 
 ---
 
 apiVersion: tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: template-github-push
+  name: template-skopeo-copy
 spec:
-  params:
-    - name: URL
-      description: The repository url to build and deploy.
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -24,7 +17,7 @@ spec:
         name: pipelinerun-$(uid)-pvc
       spec:
         pipelineRef:
-          name: github-push-pipeline
+          name: skopeo-copy-pipeline
         params:
           - name: URL
             value: $(params.URL)
