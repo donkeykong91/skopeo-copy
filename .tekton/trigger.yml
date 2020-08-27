@@ -16,8 +16,31 @@ spec:
       metadata:
         name: pipelinerun-$(uid)-pvc
       spec:
+        serviceAccountName: icr-creds-secret
         pipelineRef:
           name: skopeo-copy-pipeline
         params:
           - name: URL
             value: $(params.URL)
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: icr-creds
+  annotations:
+    tekton.dev/docker-0: https://us.icr.io
+type: kubernetes.io/basic-auth
+stringData:
+  username: $(params.icr-username)
+  password: $(params.icr-password)
+
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: icr-creds-secret
+secrets:
+  - name: icr-creds
