@@ -18,6 +18,17 @@ spec:
       description: Password for the icr
       value: $(params.icr-password)
   resourcetemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: pipelinerun-$(uid)-pvc
+      spec:
+        resources:
+          requests:
+            storage:  1Gi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
@@ -26,6 +37,11 @@ spec:
         serviceAccountName: icr-creds-secret
         pipelineRef:
           name: skopeo-copy-pipeline
+        workspaces:
+          - name: pipeline-workspace
+            persistentVolumeClaim:
+              claimName: pipelinerun-$(uid)-pvc
+
 
 ---
 
